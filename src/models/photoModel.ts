@@ -1,3 +1,4 @@
+// External dependencies
 import mongoose from 'mongoose';
 
 export interface IPhoto {

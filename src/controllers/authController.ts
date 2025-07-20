@@ -1,8 +1,17 @@
+// External dependencies
 import { Request, Response } from 'express';
-import { checkAllowedEmail, generateToken } from '../utils/helpers';
-import { User } from '../models/userModel';
 import bcrypt from 'bcryptjs';
 
+// Internal dependencies
+import { checkAllowedEmail, generateToken } from '../utils/helpers';
+import { User } from '../models/userModel';
+
+/**
+ * Handles user registration.
+ *
+ * @param req Express request object
+ * @param res Express response object
+ */
 export const register = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
@@ -40,6 +49,12 @@ export const register = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * Handles user login.
+ *
+ * @param req Express request object
+ * @param res Express response object
+ */
 export const login = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;

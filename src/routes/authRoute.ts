@@ -1,4 +1,7 @@
+// External dependencies
 import express from 'express';
+
+// Internal dependencies
 import { login, register } from '../controllers/authController';
 
 const router = express.Router();

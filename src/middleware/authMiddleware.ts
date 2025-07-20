@@ -1,3 +1,4 @@
+// External dependencies
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
@@ -8,6 +9,13 @@ export interface AuthRequest extends Request {
     };
 }
 
+/**
+ * Middleware to authenticate JWT token.
+ *
+ * @param req Express request object
+ * @param res Express response object
+ * @param next Next function to call the next middleware
+ */
 export const authenticateToken = (
     req: AuthRequest,
     res: Response,
@@ -26,6 +34,7 @@ export const authenticateToken = (
         }
 
         req.user = decoded;
+
         next();
     });
 };

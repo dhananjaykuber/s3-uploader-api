@@ -1,4 +1,7 @@
+// External dependencies
 import express, { Request, Response } from 'express';
+
+// Internal dependencies
 import authRoutes from './authRoute';
 import photoRoutes from './photosRoute';
 import { authenticateToken } from '../middleware/authMiddleware';
