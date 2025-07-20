@@ -5,12 +5,19 @@
     "main": "dist/server.js",
     "scripts": {
         "dev": "nodemon -r dotenv/config src/server.ts",
-        "build": "tsc",
         "start": "node -r dotenv/config dist/server.js",
         "start:dev": "ts-node -r dotenv/config src/server.ts",
+        "build": "rimraf dist && tsc",
+        "ts.check": "tsc --project tsconfig.json",
+        "add-build": "git add dist",
         "lint": "eslint src/**/*.ts",
         "test": "echo \"No tests specified\" && exit 0"
     },
+    "pre-commit": [
+        "ts.check",
+        "build",
+        "add-build"
+    ],
     "keywords": [
         "s3",
         "uploader",
@@ -47,6 +54,8 @@
         "@typescript-eslint/eslint-plugin": "^8.37.0",
         "@typescript-eslint/parser": "^8.37.0",
         "nodemon": "^3.1.10",
+        "pre-commit": "^1.2.2",
+        "rimraf": "^6.0.1",
         "ts-node": "^10.9.2",
         "typescript": "^5.8.3"
     }
