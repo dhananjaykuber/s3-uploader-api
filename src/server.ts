@@ -1,13 +1,17 @@
+// External dependencies
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+
+// Internal dependencies
 import routes from './routes/index';
 
 dotenv.config();
 
+// Initialize app
 const app = express();
 const PORT = process.env.PORT || 3000;
 
