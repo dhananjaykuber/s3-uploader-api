@@ -9,9 +9,9 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const mongoose_1 = __importDefault(require("mongoose"));
 // Internal dependencies
 const index_1 = __importDefault(require("./routes/index"));
+const connectDb_1 = __importDefault(require("./utils/connectDb"));
 dotenv_1.default.config();
 // Initialize app
 const app = (0, express_1.default)();
@@ -22,12 +22,5 @@ app.use((0, morgan_1.default)('combined'));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true, limit: '50mb' }));
 app.use('/api', index_1.default);
-mongoose_1.default
-    .connect(process.env.MONGODB_URI)
-    .then(() => {
-    console.log('MongoDB connected successfully');
-})
-    .catch((err) => {
-    console.error('MongoDB connection error:', err);
-});
+(0, connectDb_1.default)();
 exports.default = app;

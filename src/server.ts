@@ -4,10 +4,10 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 
 // Internal dependencies
 import routes from './routes/index';
+import connectToDB from './utils/connectDb';
 
 dotenv.config();
 
@@ -23,13 +23,6 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 app.use('/api', routes);
 
-mongoose
-    .connect(process.env.MONGODB_URI!)
-    .then(() => {
-        console.log('MongoDB connected successfully');
-    })
-    .catch((err) => {
-        console.error('MongoDB connection error:', err);
-    });
+connectToDB();
 
 export default app;
