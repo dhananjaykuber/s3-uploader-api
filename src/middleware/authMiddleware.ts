@@ -1,13 +1,9 @@
 // External dependencies
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-export interface AuthRequest extends Request {
-    user?: {
-        email: string;
-        userId: string;
-    };
-}
+// Internal dependencies
+import { AuthRequest } from '../types';
 
 /**
  * Middleware to authenticate JWT token.
