@@ -1,17 +1,25 @@
 // External dependencies
 import express from 'express';
+import { uploadMiddleware } from '../middleware/uploadMiddleware';
+import {
+    batchCheckPhotos,
+    checkPhotoExists,
+    getPhotos,
+    getPhotosByDate,
+    uploadPhoto,
+} from '../controllers/photoController';
 
 const router = express.Router();
 
-router.post('/upload', () => {});
+router.post('/upload', uploadMiddleware, uploadPhoto);
 
-router.get('/', () => {});
+router.get('/', getPhotos);
 
-router.get('/check/:checksum', () => {});
+router.get('/check/:checksum', checkPhotoExists);
 
-router.post('/batch-check', () => {});
+router.post('/batch-check', batchCheckPhotos);
 
-router.get('/by-date', () => {});
+router.get('/by-date', getPhotosByDate);
 
 router.delete('/:photoId', () => {});
 
