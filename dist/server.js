@@ -25,10 +25,9 @@ app.use('/api', index_1.default);
 mongoose_1.default
     .connect(process.env.MONGODB_URI)
     .then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
+    console.log('MongoDB connected successfully');
 })
     .catch((err) => {
     console.error('MongoDB connection error:', err);
 });
+exports.default = app;
