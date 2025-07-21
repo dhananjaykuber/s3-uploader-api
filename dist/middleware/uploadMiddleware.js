@@ -11,12 +11,7 @@ const upload = (0, multer_1.default)({
         fileSize: 50 * 1024 * 1024,
     },
     fileFilter: (req, file, cb) => {
-        if (file.mimetype.startsWith('image/')) {
-            cb(null, true);
-        }
-        else {
-            cb(new Error('Only image files are allowed'));
-        }
+        cb(null, true);
     },
 });
-exports.uploadMiddleware = upload.single('photo');
+exports.uploadMiddleware = upload.single('media');

@@ -1,9 +1,9 @@
 // External dependencies
 import mongoose from 'mongoose';
 
-export interface IPhoto {
+export interface Media {
     _id?: string;
-    localId: string;
+    mediaId: string;
     filename: string;
     s3Key: string;
     s3Url: string;
@@ -11,11 +11,10 @@ export interface IPhoto {
     mimeType: string;
     createdAt: Date;
     uploadedAt: Date;
-    checksum: string;
 }
 
-const PhotoSchema = new mongoose.Schema({
-    localId: { type: String, required: true },
+const MediaSchema = new mongoose.Schema({
+    mediaId: { type: String, required: true },
     filename: { type: String, required: true },
     s3Key: { type: String, required: true, unique: true },
     s3Url: { type: String, required: true },
@@ -23,10 +22,9 @@ const PhotoSchema = new mongoose.Schema({
     mimeType: { type: String, required: true },
     createdAt: { type: Date, required: true },
     uploadedAt: { type: Date, default: Date.now },
-    checksum: { type: String, required: true },
 });
 
-PhotoSchema.index({ checksum: 1 });
-PhotoSchema.index({ uploadedAt: -1 });
+MediaSchema.index({ mediaId: 1 });
+MediaSchema.index({ uploadedAt: -1 });
 
-export const Photo = mongoose.model<IPhoto>('Photo', PhotoSchema);
+export const Media = mongoose.model<Media>('Media', MediaSchema);

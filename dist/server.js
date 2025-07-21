@@ -23,4 +23,7 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true, limit: '50mb' }));
 app.use('/api', index_1.default);
 (0, connectDb_1.default)();
-exports.default = app;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+// export default app;

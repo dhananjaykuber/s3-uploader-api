@@ -1,7 +1,7 @@
 // External dependencies
 import mongoose from 'mongoose';
 
-export interface IUser {
+export interface User {
     _id?: string;
     email: string;
     passwordHash?: string;
@@ -18,4 +18,4 @@ const UserSchema = new mongoose.Schema({
     lastLogin: { type: Date },
 });
 
-export const User = mongoose.model<IUser>('User', UserSchema);
+export const User = mongoose.model<User>('User', UserSchema);
