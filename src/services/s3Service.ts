@@ -1,5 +1,4 @@
 // External dependencies
-import crypto from 'crypto';
 import {
     S3Client,
     PutObjectCommand,
@@ -19,25 +18,22 @@ export class S3Service {
     /**
      * Upload a photo to S3
      *
+     * @param mediaId The ID of the media
      * @param buffer The photo buffer
      * @param filename The original filename
      * @param mimeType The MIME type of the photo
      * @returns The S3 key and URL of the uploaded photo
      */
     async uploadPhoto(
+        mediaId: string,
         buffer: Buffer,
         filename: string,
         mimeType: string
     ): Promise<{ s3Key: string; s3Url: string }> {
-        // Generate a unique S3 key using the current date and a UUID
-        const timestamp = new Date().toISOString().split('T')[0];
-        const uuid = crypto.randomUUID();
-        const s3Key = `${timestamp}/${uuid}-${filename}`;
-
         // Create the S3 object
         const command = new PutObjectCommand({
             Bucket: process.env.AWS_S3_BUCKET!,
-            Key: s3Key,
+            Key: mediaId,
             Body: buffer,
             ContentType: mimeType,
             Metadata: {
@@ -52,10 +48,10 @@ export class S3Service {
         // Construct the S3 URL
         const s3Url = `https://${process.env.AWS_S3_BUCKET!}.s3.${
             process.env.AWS_REGION
-        }.amazonaws.com/${s3Key}`;
+        }.amazonaws.com/${mediaId}`;
 
         return {
-            s3Key,
+            s3Key: mediaId,
             s3Url,
         };
     }
@@ -77,15 +73,5 @@ export class S3Service {
         });
 
         return await getSignedUrl(s3Client, command, { expiresIn });
-    }
-
-    /**
-     * Generate a checksum for the given buffer
-     *
-     * @param buffer The buffer to generate the checksum for
-     * @returns The MD5 checksum of the buffer
-     */
-    generateChecksum(buffer: Buffer): string {
-        return crypto.createHash('md5').update(buffer).digest('hex');
     }
 }
